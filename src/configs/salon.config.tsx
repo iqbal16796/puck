@@ -52,6 +52,7 @@ export const salonConfig: Config<Props> = {
         secondaryButtonText: { type: "text" },
         badgeText: { type: "text" },
         backgroundImageUrl: { type: "custom", render: ImageUploadField },
+        backgroundVideo: { type: "text" },
       },
       defaultProps: {
         headline: "Elevate Your Beauty",
@@ -60,6 +61,7 @@ export const salonConfig: Config<Props> = {
         secondaryButtonText: "View Services",
         badgeText: "Now Accepting New Clients",
         backgroundImageUrl: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2070&auto=format&fit=crop",
+        backgroundVideo: "https://videos.pexels.com/video-files/7253934/7253934-sd_960_506_25fps.mp4",
       },
       render: ({ puck, ...props }) => <SalonHero {...props} />,
     },

@@ -38,12 +38,14 @@ export const bakeryConfig: Config<Props> = {
         subheadline: { type: "textarea" },
         buttonText: { type: "text" },
         backgroundImageUrl: { type: "custom", render: ImageUploadField },
+        backgroundVideo: { type: "text" },
       },
       defaultProps: {
         headline: "Artisan Breads & Pastries",
         subheadline: "Baked fresh daily using traditional methods and locally sourced ingredients.",
         buttonText: "Order Online",
         backgroundImageUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop",
+        backgroundVideo: "https://videos.pexels.com/video-files/12678033/12678033-hd_1920_1080_24fps.mp4",
       },
       render: ({ puck, ...props }) => <BakeryHero {...props} />
     },
@@ -262,7 +264,7 @@ export const bakeryConfig: Config<Props> = {
 
 export const defaultData = {
   content: [
-    { type: "BakeryHero", props: { id: "BakeryHero-1" } },
+    { type: "BakeryHero", props: { id: "BakeryHero-1", backgroundVideo: "https://videos.pexels.com/video-files/12678033/12678033-hd_1920_1080_24fps.mp4" } },
     { type: "EmberMarquee", props: { id: "EmberMarquee-1" } },
     { type: "ChefsSpecial", props: { id: "ChefsSpecial-1" } },
     { type: "ProductMenu", props: { id: "ProductMenu-1" } },

@@ -10,9 +10,10 @@ export type ImmersiveHeroProps = {
   backgroundImageUrl: string;
   openingHours?: string;
   reservationPhone?: string;
+  backgroundVideo?: string;
 };
 
-export const ImmersiveHero = ({ restaurantName, tagline, backgroundImageUrl, openingHours, reservationPhone }: ImmersiveHeroProps) => {
+export const ImmersiveHero = ({ restaurantName, tagline, backgroundImageUrl, openingHours, reservationPhone, backgroundVideo }: ImmersiveHeroProps) => {
   const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const { scrollY } = useScroll();
@@ -26,21 +27,29 @@ export const ImmersiveHero = ({ restaurantName, tagline, backgroundImageUrl, ope
   return (
     <section className="grain relative w-full h-screen overflow-hidden bg-[#150508]">
       {/* Cinematic slow zoom on the room / plate */}
-      <motion.div
-        className="absolute inset-0"
-        style={{ y }}
-        animate={reduce ? undefined : { scale: [1, 1.13] }}
-        transition={reduce ? undefined : { duration: 26, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
-      >
-        <Image
-          src={backgroundImageUrl}
-          alt={restaurantName}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+      {backgroundVideo ? (
+        <motion.video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ y }}
+          animate={reduce ? undefined : { scale: [1, 1.13] }}
+          transition={reduce ? undefined : { duration: 26, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          src={backgroundVideo}
         />
-      </motion.div>
+      ) : backgroundImageUrl ? (
+        <motion.div
+          className="absolute inset-0 w-full h-full object-cover z-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url(${backgroundImageUrl})`,
+            y,
+          }}
+          animate={reduce ? undefined : { scale: [1, 1.13] }}
+          transition={reduce ? undefined : { duration: 26, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+        />
+      ) : null}
 
       {/* Wine-dark vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#150508_100%)] opacity-90" />

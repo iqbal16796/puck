@@ -16,6 +16,7 @@ export interface EducationHeroProps {
   subheadline: string;
   ctaText: string;
   backgroundImageUrl: string;
+  backgroundVideo?: string;
 }
 
 export const EducationHero = ({
@@ -23,6 +24,7 @@ export const EducationHero = ({
   subheadline,
   ctaText,
   backgroundImageUrl,
+  backgroundVideo,
 }: EducationHeroProps) => {
   const [showDemo, setShowDemo] = useState(false);
 
@@ -34,15 +36,30 @@ export const EducationHero = ({
         
         {/* Background */}
         <div className="absolute inset-0">
-          <motion.img
-            initial={{ scale: 1.05, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.48 }}
-            transition={{ duration: 1.8, ease: "easeOut" }}
-            src={backgroundImageUrl}
-            alt=""
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/30" />
+          {backgroundVideo ? (
+            <motion.video
+              autoPlay
+              loop
+              muted
+              playsInline
+              initial={{ scale: 1.05, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.48 }}
+              transition={{ duration: 1.8, ease: "easeOut" }}
+              className="absolute inset-0 w-full h-full object-cover z-0"
+              src={backgroundVideo}
+            />
+          ) : backgroundImageUrl ? (
+            <motion.div
+              initial={{ scale: 1.05, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.48 }}
+              transition={{ duration: 1.8, ease: "easeOut" }}
+              className="absolute inset-0 w-full h-full object-cover z-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url(${backgroundImageUrl})`,
+              }}
+            />
+          ) : null}
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40" />
           {/* Grid */}
           <div

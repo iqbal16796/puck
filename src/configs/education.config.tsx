@@ -43,6 +43,7 @@ export const educationConfig: Config<Props> = {
           type: "custom",
           render: ImageUploadField,
         },
+        backgroundVideo: { type: "text" },
       },
       defaultProps: {
         headline: "Master Your Future With Elite Coaching",
@@ -51,6 +52,7 @@ export const educationConfig: Config<Props> = {
         ctaText: "Start Learning Today",
         backgroundImageUrl:
           "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop",
+        backgroundVideo: "https://videos.pexels.com/video-files/6563866/6563866-hd_1920_1080_25fps.mp4",
       },
       render: ({ puck, ...props }) => <EducationHero {...props} />,
     },
@@ -475,7 +477,7 @@ export const educationConfig: Config<Props> = {
 
 export const defaultData = {
   content: [
-    { type: "EducationHero", props: { id: "EducationHero-1" } },
+    { type: "EducationHero", props: { id: "EducationHero-1", backgroundVideo: "https://videos.pexels.com/video-files/6563866/6563866-hd_1920_1080_25fps.mp4" } },
     { type: "UniversityPartners", props: { id: "UniversityPartners-1" } },
     { type: "EducationStats", props: { id: "EducationStats-1" } },
     { type: "WhyChooseUs", props: { id: "WhyChooseUs-1" } },

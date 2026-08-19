@@ -24,6 +24,7 @@ export const restaurantConfig: Config<Props> = {
         restaurantName: { type: "text" },
         tagline: { type: "text" },
         backgroundImageUrl: { type: "custom", render: ImageUploadField },
+        backgroundVideo: { type: "text" },
         openingHours: { type: "text" },
         reservationPhone: { type: "text" },
       },
@@ -31,6 +32,7 @@ export const restaurantConfig: Config<Props> = {
         restaurantName: "L'Aura",
         tagline: "Modern Fine Dining",
         backgroundImageUrl: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1974&auto=format&fit=crop",
+        backgroundVideo: "https://videos.pexels.com/video-files/3769033/3769033-hd_1920_1080_25fps.mp4",
         openingHours: "Tue–Sun: 6pm – 11pm",
         reservationPhone: "+1 (212) 555-0178",
       },
@@ -110,7 +112,7 @@ export const restaurantConfig: Config<Props> = {
         dishName: "Truffle Butter Lobster Tail",
         description: "Freshly caught Maine lobster tail, slow-poached in imported French butter and topped with shaved black truffles.",
         ingredients: [{ value: "Maine Lobster" }, { value: "Black Truffle" }, { value: "Normandy Butter" }, { value: "Micro Herbs" }] as any,
-        imageUrl: "https://images.unsplash.com/photo-1559742811-822873691fc8?q=80&w=1974&auto=format&fit=crop"
+        imageUrl: "https://images.pexels.com/photos/36682993/pexels-photo-36682993.jpeg"
       },
       render: ({ puck, ...props }) => <ChefsSpecial {...props} />
     },
@@ -150,7 +152,7 @@ export const restaurantConfig: Config<Props> = {
 
 export const defaultData = {
   content: [
-    { type: "ImmersiveHero", props: { id: "ImmersiveHero-1" } },
+    { type: "ImmersiveHero", props: { id: "ImmersiveHero-1", backgroundVideo: "https://videos.pexels.com/video-files/3769033/3769033-hd_1920_1080_25fps.mp4" } },
     { type: "ChefsSpecial", props: { id: "ChefsSpecial-1" } },
     { type: "MenuSection", props: { id: "MenuSection-1" } },
     { type: "AtmosphereGallery", props: { id: "AtmosphereGallery-1" } },

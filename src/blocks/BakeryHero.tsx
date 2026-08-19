@@ -19,6 +19,7 @@ export type BakeryHeroProps = {
   subheadline: string;
   buttonText: string;
   backgroundImageUrl: string;
+  backgroundVideo?: string;
 };
 
 export const BakeryHero = ({
@@ -26,6 +27,7 @@ export const BakeryHero = ({
   subheadline,
   buttonText,
   backgroundImageUrl,
+  backgroundVideo,
 }: BakeryHeroProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -65,16 +67,28 @@ export const BakeryHero = ({
       ref={containerRef}
       className="grain relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-stone-950"
     >
-      <motion.div className="absolute inset-0 z-0" style={{ y: yBg, scale: scaleBg }}>
-        <Image
-          src={backgroundImageUrl}
-          alt="Freshly baked artisan sourdough resting in warm light"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+      {backgroundVideo ? (
+        <motion.video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ y: yBg, scale: scaleBg }}
+          src={backgroundVideo}
         />
-      </motion.div>
+      ) : backgroundImageUrl ? (
+        <motion.div className="absolute inset-0 z-0" style={{ y: yBg, scale: scaleBg }}>
+          <Image
+            src={backgroundImageUrl}
+            alt="Freshly baked artisan sourdough resting in warm light"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </motion.div>
+      ) : null}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-stone-950/50 via-stone-950/65 to-stone-950" />
 
       <Auroras intensity={28} />
