@@ -4,6 +4,7 @@ import { Render } from "@measured/puck";
 import { createClient } from "@/utils/supabase/server";
 
 import { getTemplateConfig } from "@/configs";
+import { MagicSiteRenderer } from "@/components/MagicSiteRenderer";
 
 export const revalidate = 0;
 
@@ -31,6 +32,8 @@ export default async function PreviewSitePage({ params }: { params: Promise<{ si
   const config = getTemplateConfig(site.template_id, site.puck_data);
 
   return (
-    <Render config={config} data={site.puck_data} />
+    <MagicSiteRenderer templateId={site.template_id}>
+      <Render config={config} data={site.puck_data} />
+    </MagicSiteRenderer>
   );
 }

@@ -6,6 +6,7 @@ import { createClient } from "@/utils/supabase/server";
 import { getTemplateConfig } from "@/configs";
 import { RemixButton } from "@/components/RemixButton";
 import { ExportButton } from "@/components/ExportButton";
+import { MagicSiteRenderer } from "@/components/MagicSiteRenderer";
 
 export const revalidate = 0; // Force Next.js to always fetch the freshest site data
 
@@ -33,7 +34,9 @@ export default async function PublicSitePage({ params }: { params: Promise<{ sit
 
   return (
     <>
-      <Render config={config} data={site.puck_data} />
+      <MagicSiteRenderer templateId={site.template_id}>
+        <Render config={config} data={site.puck_data} />
+      </MagicSiteRenderer>
       <ExportButton siteId={siteId} />
       <RemixButton siteId={siteId} />
     </>

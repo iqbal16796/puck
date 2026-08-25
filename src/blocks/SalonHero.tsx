@@ -48,7 +48,7 @@ export const SalonHero = ({
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-65"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-85"
           style={{
             y: backgroundY,
             scale: 1.0,

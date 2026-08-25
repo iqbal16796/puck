@@ -15,6 +15,7 @@ import { PresencePill } from "@/components/PresencePill";
 import { getTemplateConfig } from "@/configs";
 import { lintPuckData, applyAllLintFixes, type LintIssue } from "@/lib/siteLinter";
 import { useCoEditing } from "@/hooks/useCoEditing";
+import { MagicSiteRenderer } from "@/components/MagicSiteRenderer";
 
 // A brand-new site's initialData is a template's bare defaultData — just
 // `{ id }` per block. Two things normally fill that in, both internal to
@@ -224,13 +225,26 @@ export function EditorClient({
       </button>
 
       {/* The Visual Editor */}
-      <Puck
-        key={puckKey}
-        config={config}
-        data={displayData}
-        onChange={handlePuckChange}
-        onPublish={handlePuckPublish}
-      />
+      <MagicSiteRenderer
+        templateId={templateId}
+        overrideSettings={{
+          enabled: false,
+          cursorAura: false,
+          cursorTrail: false,
+          magnetic: false,
+          focusCursor: false,
+          parallax: false,
+          particles: false,
+        }}
+      >
+        <Puck
+          key={puckKey}
+          config={config}
+          data={displayData}
+          onChange={handlePuckChange}
+          onPublish={handlePuckPublish}
+        />
+      </MagicSiteRenderer>
 
       {/* Structural SEO/accessibility linter — shown before publish if issues exist */}
       <SeoLintPanel

@@ -44,7 +44,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} ${caveat.variable}`}>
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${dmSans.variable} ${caveat.variable}`}
+      suppressHydrationWarning
+    >
       <body className="antialiased">
         {children}
         <Toaster theme="dark" position="bottom-right" richColors />

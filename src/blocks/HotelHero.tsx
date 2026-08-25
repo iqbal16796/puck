@@ -1,0 +1,6 @@
+"use client";
+import { Atmosphere, Pill } from "./magical/MagicMotion";
+import { ImageReveal } from "@/magic";
+export function HotelHero({eyebrow,title,description,imageUrl}:{eyebrow:string;title:string;description:string;imageUrl:string}) {
+ return <section className="relative min-h-screen overflow-hidden bg-[#171513] text-white"><Atmosphere dark/><ImageReveal src={imageUrl} alt="Boutique hotel" className="absolute inset-0 h-full w-full opacity-70"/><div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/40"/><div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-6 py-8 lg:px-10"><div className="flex justify-between"><Pill dark>{eyebrow}</Pill><span className="text-xs uppercase tracking-[.25em] text-white/50">01 — Stay</span></div><div className="pb-10"><h1 className="max-w-5xl text-[clamp(4rem,10vw,10rem)] font-medium leading-[.82] tracking-[-.07em]">{title}</h1><div className="mt-8 flex flex-col justify-between gap-8 md:flex-row md:items-end"><p className="max-w-lg text-lg leading-8 text-white/60">{description}</p><a href="#rooms" className="group rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm backdrop-blur transition hover:bg-white hover:text-black">Discover the stay <span className="ml-3 transition group-hover:ml-5">→</span></a></div></div></div></section>;
+}

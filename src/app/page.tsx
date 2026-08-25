@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from "react";
 import { ArrowRight, Sparkles, Layers, Wand2, Rocket, X } from "lucide-react";
-import { buildSalonContentFromAi } from "@/lib/aiContentMerge";
 
 type Template = {
   id: string;
@@ -17,42 +16,50 @@ const templates: Template[] = [
   {
     id: "salon",
     name: "The Luxury Salon",
-    description: "Perfect for salons, spas, and wellness centers.",
-    image: "",
+    description: "An elegant design for salons, spas, and modern wellness centers.",
+    image: "/templates/salon-full.jpg",
     tag: "Beauty",
     sections: ["Hero", "Service Menu", "Team", "Gallery", "Testimonials", "Footer"],
   },
   {
     id: "bakery",
     name: "The Artisan Bakery",
-    description: "Warm, inviting design for bakeries and cafes.",
-    image: "",
+    description: "A warm and inviting design for artisan bakeries, cafés, and pastry shops.",
+    image: "/templates/bakery-full.jpg",
     tag: "Food",
     sections: ["Hero", "Chef Bio", "Product Menu", "Reviews", "Hours"],
   },
   {
     id: "education",
     name: "Elite Coaching",
-    description: "A premium, highly animated design for coaching centers, tutors, and online courses.",
-    image: "", // Add an image URL if you have a thumbnail
+    description: "A premium animated design for coaching centers, tutors, and online learning platforms.",
+    image: "/templates/educate.jpg",
     tag: "Education",
     sections: ["EducationHero", "CourseList", "TutorProfiles", "StudentTestimonials"],
   },
   {
-    id: "plumber",
-    name: "Reliable Home Services",
-    description: "Built to convert leads for plumbers and contractors.",
-    image: "",
-    tag: "Trades",
-    sections: ["Emergency Hero", "Process", "Services", "Pricing", "FAQ", "Trust"],
+    id: "restaurant",
+    name: "Fine Dining",
+    description: "An elegant and immersive design for fine dining restaurants and culinary experiences.",
+    image: "/templates/dining.jpg",
+    tag: "Food",
+    sections: ["Immersive Hero", "Specials", "Menu", "Gallery", "Reservations", "VIP"],
   },
   {
     id: "gym",
     name: "The Powerhouse Gym",
-    description: "High-energy design for fitness centers and trainers.",
-    image: "",
+    description: "A bold, high-energy design for gyms, fitness centers, and personal trainers.",
+    image: "/templates/gym.jpg",
     tag: "Fitness",
     sections: ["Hero", "Schedule", "Memberships", "Trainers", "Gallery", "Stories"],
+  },
+  {
+    id: "realestate",
+    name: "Luxury Real Estate",
+    description: "A cinematic and modern design for luxury real estate agencies and property listings.",
+    image: "/templates/realestate.jpg",
+    tag: "Real Estate",
+    sections: ["Hero", "Explorer", "Listings", "Neighborhoods", "Stats", "Agent Spotlight"],
   },
   {
     id: "lawyer",
@@ -61,14 +68,6 @@ const templates: Template[] = [
     image: "",
     tag: "Professional",
     sections: ["Authority Hero", "Practice Areas", "Cases", "Bios", "Consult", "Stats"],
-  },
-  {
-    id: "restaurant",
-    name: "Fine Dining",
-    description: "Elegant, immersive design for high-end restaurants.",
-    image: "",
-    tag: "Food",
-    sections: ["Immersive Hero", "Specials", "Menu", "Gallery", "Reservations", "VIP"],
   },
   {
     id: "portfolio",
@@ -102,14 +101,7 @@ const templates: Template[] = [
     tag: "Retail",
     sections: ["Hero", "Maker Story", "Shop", "Reviews"],
   },
-  {
-    id: "photography",
-    name: "Visual Storyteller",
-    description: "A cinematic portfolio for photographers and videographers.",
-    image: "",
-    tag: "Creative",
-    sections: ["Hero", "Collections", "About", "Pricing", "Contact"],
-  },
+
   {
     id: "tech",
     name: "SaaS Starter",
@@ -117,6 +109,54 @@ const templates: Template[] = [
     image: "",
     tag: "Technology",
     sections: ["Hero", "Features", "Social Proof", "Pricing", "CTA"],
+  },
+  {
+    id: "wellness",
+    name: "Wellness Studio",
+    description: "A premium animated wellness, yoga and movement studio website.",
+    image: "",
+    tag: "Wellness",
+    sections: ["Animated hero", "Programs", "Class schedule", "Instructors", "Memberships", "Testimonials", "FAQ"],
+  },
+  {
+    id: "hotel",
+    name: "Boutique Hotel",
+    description: "An immersive editorial experience for boutique hotels and resorts.",
+    image: "",
+    tag: "Hospitality",
+    sections: ["Hero", "Rooms", "Experiences", "Amenities", "Dining", "Booking"],
+  },
+  {
+    id: "plumber",
+    name: "Reliable Home Services",
+    description: "Built to convert leads for plumbers and contractors.",
+    image: "",
+    tag: "Trades",
+    sections: ["Emergency Hero", "Process", "Services", "Pricing", "FAQ", "Trust"],
+  },
+  {
+    id: "photography",
+    name: "Photography Studio",
+    description: "A cinematic portfolio for photographers and visual artists.",
+    image: "",
+    tag: "Creative",
+    sections: ["Hero", "Client Marquee", "Gallery", "Statement", "Services", "Contact"],
+  },
+  {
+    id: "interior",
+    name: "Interior Architecture",
+    description: "An architectural portfolio for interior designers and studios.",
+    image: "",
+    tag: "Design",
+    sections: ["Hero", "Projects", "Materials", "Process", "Journal"],
+  },
+  {
+    id: "aiagency",
+    name: "AI Systems Agency",
+    description: "A futuristic website for AI automation and intelligent systems.",
+    image: "",
+    tag: "AI",
+    sections: ["Hero", "Metrics", "Systems", "Workflow", "Case Studies", "CTA"],
   },
 ];
 
@@ -176,7 +216,7 @@ function cn(...classes: (string | false | undefined)[]) {
 }
 
 function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
@@ -241,7 +281,7 @@ function SpotlightCard({ template, index, onSelect }: { template: Template; inde
     setSpotlight((s) => ({ ...s, active: false }));
   };
 
-  // Generate a consistent gradient based on template id
+  // Generate a consistent gradient based on template id for fallbacks
   const getGradientForTemplate = (id: string) => {
     const gradients = {
       salon: 'from-pink-500/30 to-purple-600/30',
@@ -260,6 +300,19 @@ function SpotlightCard({ template, index, onSelect }: { template: Template; inde
     return gradients[id as keyof typeof gradients] || 'from-primary/30 to-accent/30';
   };
 
+  // Get crop amount for each template to hide unwanted header areas
+  const getCropAmount = (id: string) => {
+    const cropAmounts = {
+      education: 0, // Education needs heavy crop for grey header
+      salon: 0,     // Salon needs light crop  
+      restaurant: 0, // Restaurant needs medium crop
+      gym: 0,       // Gym needs medium crop
+      bakery: 0,     // Bakery looks good as-is
+      realestate: 0, // Real estate looks good as-is
+    };
+    return cropAmounts[id as keyof typeof cropAmounts]; // Default medium crop
+  };
+
   return (
     <button
       ref={cardRef}
@@ -267,53 +320,85 @@ function SpotlightCard({ template, index, onSelect }: { template: Template; inde
       onMouseLeave={handleLeave}
       onClick={() => onSelect(template)}
       className={cn(
-        "spotlight-card group relative overflow-hidden rounded-3xl border border-white/10 bg-card text-left shadow-card transition-transform duration-300 hover:-translate-y-2",
+        "spotlight-card group relative overflow-hidden rounded-3xl border border-white/10 bg-card text-left shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-primary/10 hover:border-white/20",
         "reveal"
       )}
       style={{
         transitionDelay: `${index * 90}ms`,
       }}
     >
+      {/* Spotlight Effect overlay */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={
           spotlight.active
             ? {
-              background: `radial-gradient(600px circle at ${spotlight.x}% ${spotlight.y}%, rgba(225, 29, 72, 0.22), transparent 40%)`,
+              background: `radial-gradient(600px circle at ${spotlight.x}% ${spotlight.y}%, rgba(255, 255, 255, 0.06), transparent 40%)`,
             }
             : undefined
         }
       />
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <div className={cn(
-          "h-full w-full bg-gradient-to-br flex items-center justify-center",
-          getGradientForTemplate(template.id)
-        )}>
-          <div className="text-center">
-            <Layers className="h-12 w-12 text-white/60 mx-auto mb-2" />
-            <span className="text-white/80 font-display text-lg">{template.tag}</span>
+
+      {/* Image / Gradient Container */}
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5">
+
+        {/* Adds a tiny, crisp white line at the very top to separate dark images from the card */}
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-white/10 z-30 pointer-events-none" />
+
+        {template.image ? (
+          <div
+            className="absolute left-0 right-0 w-full bg-cover bg-top transition-all duration-[6000ms] ease-linear group-hover:bg-bottom"
+            style={{
+              backgroundImage: `url(${template.image})`,
+              top: `-${getCropAmount(template.id)}px`,
+              height: `calc(100% + ${getCropAmount(template.id)}px)`
+            }}
+          />
+        ) : (
+          <div className={cn(
+            "absolute inset-0 h-full w-full bg-gradient-to-br flex items-center justify-center transition-transform duration-700 group-hover:scale-110",
+            getGradientForTemplate(template.id)
+          )}>
+            <div className="text-center">
+              <Layers className="h-12 w-12 text-white/60 mx-auto mb-2" />
+              <span className="text-white/80 font-display text-lg">{template.tag}</span>
+            </div>
           </div>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent opacity-80" />
-        <span className="absolute left-4 top-4 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary backdrop-blur-sm">
+        )}
+
+        {/* Seamless Bottom Gradient to blend into the card body */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card via-card/80 to-transparent pointer-events-none z-10" />
+
+        {/* Premium Frosted Glass Badge */}
+        <span className="absolute left-4 top-4 z-20 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md border border-white/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
           {template.tag}
         </span>
       </div>
-      <div className="relative p-5">
-        <h3 className="font-display text-2xl leading-tight">{template.name}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">{template.description}</p>
-        <div className="mt-4 flex flex-wrap gap-2">
+
+      {/* Card Body */}
+      <div className="relative p-6 z-20">
+        <h3 className="font-display text-2xl leading-tight text-white/95 group-hover:text-white transition-colors">
+          {template.name}
+        </h3>
+        <p className="mt-2 text-sm text-white/50 leading-relaxed">
+          {template.description}
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-2">
           {template.sections.map((section) => (
             <span
               key={section}
-              className="tag-pill inline-block rounded-full border border-white/5 bg-white/5 px-2.5 py-1 text-xs text-muted-foreground transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+              className="tag-pill inline-block rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-white/60 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-hover:border-white/20 group-hover:text-white/90"
             >
               {section}
             </span>
           ))}
         </div>
-        <div className="mt-5 flex items-center gap-2 text-sm font-medium text-primary">
-          Customize <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+
+        {/* Elevated CTA */}
+        <div className="mt-6 flex items-center gap-2 text-sm font-medium text-primary/80 transition-colors group-hover:text-primary">
+          Customize template
+          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
         </div>
       </div>
     </button>
@@ -443,16 +528,9 @@ export default function HomePage() {
     setModalOpen(false);
     setToast(`${name} is ready!`);
 
-    // Redirect to the editor with the selected template after a brief delay
     setTimeout(() => {
       if (selectedTemplate) {
-        // Generate a unique site ID (in a real app, this would come from the backend).
-        // Hyphens only — the save-site route sanitizes names to [a-z0-9-], and
-        // this ID is reused as-is for the editor, preview, and autosave URLs
-        // for the whole session, so it must already match what gets saved.
         const siteId = `site-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-
-        // Redirect to the editor with the template and site info
         window.location.href = `/editor/${siteId}?template=${selectedTemplate.id}&siteName=${encodeURIComponent(name)}`;
       }
     }, 1000);
@@ -473,15 +551,36 @@ export default function HomePage() {
 
       {/* Floating stars */}
       <div className="pointer-events-none fixed inset-0 -z-10">
-        {[...Array(20)].map((_, i) => (
+        {[
+          { left: 15, top: 25, delay: 0.5, duration: 4 },
+          { left: 85, top: 15, delay: 1.2, duration: 3.5 },
+          { left: 35, top: 80, delay: 2.1, duration: 5 },
+          { left: 75, top: 65, delay: 0.8, duration: 4.2 },
+          { left: 45, top: 35, delay: 1.8, duration: 3.8 },
+          { left: 90, top: 45, delay: 0.3, duration: 4.8 },
+          { left: 20, top: 70, delay: 2.5, duration: 3.2 },
+          { left: 65, top: 20, delay: 1.1, duration: 4.5 },
+          { left: 10, top: 55, delay: 1.9, duration: 3.7 },
+          { left: 80, top: 85, delay: 0.7, duration: 5.2 },
+          { left: 50, top: 10, delay: 2.2, duration: 4.1 },
+          { left: 25, top: 90, delay: 1.5, duration: 3.9 },
+          { left: 70, top: 40, delay: 0.9, duration: 4.7 },
+          { left: 5, top: 60, delay: 1.7, duration: 3.3 },
+          { left: 95, top: 30, delay: 2.8, duration: 5.1 },
+          { left: 40, top: 75, delay: 0.4, duration: 4.3 },
+          { left: 60, top: 5, delay: 2.0, duration: 3.6 },
+          { left: 30, top: 50, delay: 1.3, duration: 4.9 },
+          { left: 85, top: 70, delay: 0.6, duration: 3.4 },
+          { left: 55, top: 95, delay: 2.4, duration: 4.6 }
+        ].map((star, i) => (
           <span
             key={i}
             className="absolute h-1 w-1 rounded-full bg-white/60 animate-twinkle"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 3}s`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
+              animationDelay: `${star.delay}s`,
+              animationDuration: `${star.duration}s`,
             }}
           />
         ))}
@@ -628,15 +727,15 @@ export default function HomePage() {
       {toast && <Toast message={toast} onDone={() => setToast(null)} />}
 
       <style jsx>{`
-        .spotlight-card .tag-pill {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        .spotlight-card:hover .tag-pill {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      `}</style>
+    .spotlight-card .tag-pill {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .spotlight-card:hover .tag-pill {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  `}</style>
     </div>
   );
 }

@@ -185,7 +185,7 @@ export const bakeryConfig: Config<Props> = {
         imageUrls: [
           { url: "https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?q=80&w=2070&auto=format&fit=crop", title: "Fresh Croissants" },
           { url: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=1965&auto=format&fit=crop", title: "Cookie Assortment" },
-          { url: "https://images.unsplash.com/photo-1621236378699-8597fc6a0c16?q=80&w=1974&auto=format&fit=crop", title: "Fruit Tarts" },
+          { url: "https://images.pexels.com/photos/12125085/pexels-photo-12125085.jpeg", title: "Fruit Tarts" },
           { url: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=2132&auto=format&fit=crop", title: "Artisan Bread" }
         ]
       },

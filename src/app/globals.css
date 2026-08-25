@@ -1,3 +1,5 @@
+@import "../magic/magic.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -144,6 +146,48 @@
   }
 }
 
+@keyframes wellnessFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) scale(1.04);
+  }
+}
+
+@keyframes wellnessMorph {
+  0% {
+    border-radius: 42% 58% 63% 37% / 48% 38% 62% 52%;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    border-radius: 65% 35% 41% 59% / 56% 62% 38% 44%;
+    transform: rotate(8deg) scale(1.05);
+  }
+  100% {
+    border-radius: 42% 58% 63% 37% / 48% 38% 62% 52%;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes wellnessBreathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes wellnessMarquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @keyframes fade-in-soft {
   from {
     opacity: 0;
@@ -189,6 +233,35 @@
 }
 
 @layer utilities {
+  .animate-wellnessFloat {
+    animation: wellnessFloat 15s ease-in-out infinite;
+  }
+  .animate-wellnessMorph {
+    animation: wellnessMorph 20s ease-in-out infinite;
+  }
+  .animate-wellnessBreathe {
+    animation: wellnessBreathe 9s ease-in-out infinite;
+  }
+  .animate-wellnessMarquee {
+    animation: wellnessMarquee 30s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-wellnessFloat {
+      animation: none;
+    }
+    .animate-wellnessMorph {
+      animation: none;
+      border-radius: 50%;
+    }
+    .animate-wellnessBreathe {
+      animation: none;
+    }
+    .animate-wellnessMarquee {
+      animation: none;
+    }
+  }
+
   .aurora {
     will-change: transform;
     animation: drift 18s ease-in-out infinite;
@@ -279,4 +352,19 @@
     -webkit-background-clip: text;
     color: transparent;
   }
+}
+
+/* Add these to your existing global stylesheet. Do not replace existing CSS. */
+@keyframes magicFloat {
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(0,-18px,0) scale(1.04); }
+}
+@keyframes magicBreath {
+  0%,100% { transform: translate(-50%,-50%) scale(1); opacity:.65; }
+  50% { transform: translate(-50%,-50%) scale(1.08); opacity:1; }
+}
+@keyframes magicMarquee { from { transform:translateX(0); } to { transform:translateX(-33.333%); } }
+@keyframes magicMarqueeReverse { from { transform:translateX(-33.333%); } to { transform:translateX(0); } }
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
 }

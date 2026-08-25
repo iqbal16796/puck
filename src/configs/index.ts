@@ -9,6 +9,12 @@ import { clothingConfig, defaultData as clothingDefaultData } from './clothing.c
 import { ayurvedicConfig, defaultData as ayurvedicDefaultData } from './ayurvedic.config';
 import { craftConfig, defaultData as craftDefaultData } from './craft.config';
 import { educationConfig, defaultData as educationDefaultData } from './education.config';
+import { wellnessConfig, defaultData as wellnessDefaultData } from './wellness.config';
+import { realestateConfig, defaultData as realestateDefaultData } from "./realestate.config";
+import { hotelConfig, defaultData as hotelDefaultData } from "./hotel.config";
+import { photographyConfig, defaultData as photographyDefaultData } from "./photography.config";
+import { interiorConfig, defaultData as interiorDefaultData } from "./interior.config";
+import { aiagencyConfig, defaultData as aiagencyDefaultData } from "./aiagency.config";
 
 export const templateConfigs: Record<string, any> = {
   salon: salonConfig,
@@ -22,6 +28,12 @@ export const templateConfigs: Record<string, any> = {
   clothing: clothingConfig,
   ayurvedic: ayurvedicConfig,
   craft: craftConfig,
+  wellness: wellnessConfig,
+  realestate: realestateConfig,
+  hotel: hotelConfig,
+  photography: photographyConfig,
+  interior: interiorConfig,
+  aiagency: aiagencyConfig,
 };
 
 export const templateData: Record<string, any> = {
@@ -36,6 +48,12 @@ export const templateData: Record<string, any> = {
   clothing: clothingDefaultData,
   ayurvedic: ayurvedicDefaultData,
   craft: craftDefaultData,
+  wellness: wellnessDefaultData,
+  realestate: realestateDefaultData,
+  hotel: hotelDefaultData,
+  photography: photographyDefaultData,
+  interior: interiorDefaultData,
+  aiagency: aiagencyDefaultData,
 };
 
 /**

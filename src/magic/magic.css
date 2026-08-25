@@ -1,0 +1,31 @@
+.magic-root{--magic-a:148 163 184;--magic-b:255 255 255;position:relative}
+.magic-cursor-aura{position:fixed;z-index:9997;left:0;top:0;width:360px;height:360px;border-radius:999px;pointer-events:none;background:radial-gradient(circle,rgb(var(--magic-a)/.14),transparent 66%);filter:blur(12px);mix-blend-mode:screen}
+.magic-trail{position:fixed;inset:0;z-index:9998;pointer-events:none}
+.magic-trail-dot{position:fixed;width:5px;height:5px;border-radius:50%;background:rgb(var(--magic-a))}
+.magic-reveal{opacity:0;transform:translateY(42px) scale(.97);filter:blur(5px);transition:opacity .9s cubic-bezier(.16,1,.3,1) var(--magic-delay),transform .9s cubic-bezier(.16,1,.3,1) var(--magic-delay),filter .9s ease var(--magic-delay)}
+.magic-reveal[data-visible=true]{opacity:1;transform:none;filter:none}
+.magic-card{position:relative;overflow:hidden}
+.magic-card:before{content:"";position:absolute;inset:-1px;pointer-events:none;z-index:3;opacity:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgb(var(--magic-b)/.18),transparent 65%);transition:opacity .35s}
+.magic-card:hover:before{opacity:1}
+.magic-image{position:relative;overflow:hidden;isolation:isolate}
+.magic-image img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.12);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.magic-image:after{content:"";position:absolute;inset:0;background:rgb(var(--magic-a)/.92);z-index:2;transform:translateY(0);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.magic-image[data-visible=true] img{transform:scale(1)}
+.magic-image[data-visible=true]:after{transform:translateY(-105%)}
+.magic-focus{position:fixed;z-index:10000;width:56px;height:56px;border:1px solid rgb(var(--magic-a)/.6);border-radius:50%;display:grid;place-items:center;color:white;font-size:8px;letter-spacing:.18em;pointer-events:none}
+.magic-particles{position:fixed;inset:0;z-index:1;pointer-events:none}
+.magic-particles i{position:absolute;width:3px;height:3px;border-radius:50%;background:rgb(var(--magic-a)/.45);left:calc((var(--i,1)*37)%100);animation:magicFloat 10s ease-in-out infinite}
+.magic-grain{position:fixed;inset:0;z-index:9990;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
+.magic-morphing-blob{position:absolute;z-index:0;width:420px;height:420px;border-radius:42% 58% 63% 37%/41% 43% 57% 59%;background:radial-gradient(circle,rgb(var(--magic-a)/.18),transparent 65%);filter:blur(30px);pointer-events:none;animation:magicMorph 14s ease-in-out infinite alternate}
+.magic-constellation{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.18;pointer-events:none}
+.magic-constellation circle{fill:rgb(var(--magic-a))}
+.magic-progress{position:fixed;right:18px;top:50%;z-index:9996;display:flex;gap:10px;transform:translateY(-50%);pointer-events:none}
+.magic-progress>i{width:2px;height:72px;background:rgb(var(--magic-a)/.15);display:block;transform-origin:top}
+.magic-progress>i:after{content:"";display:block;width:100%;height:100%;background:rgb(var(--magic-a))}
+.magic-progress div{display:flex;flex-direction:column;gap:8px;font-size:8px;text-transform:uppercase;letter-spacing:.12em;opacity:.4}
+.magic-section-title span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.25em;opacity:.4;margin-bottom:1rem}
+.magic-section-title h2{font-size:clamp(3rem,6vw,7rem);line-height:.86;letter-spacing:-.06em}
+@keyframes magicFloat{0%,100%{transform:translate(0,0);opacity:.15}50%{transform:translate(20px,-35px);opacity:.8}}
+@keyframes magicMorph{0%{border-radius:42% 58% 63% 37%/41% 43% 57% 59%;transform:rotate(0) scale(1)}50%{border-radius:67% 33% 41% 59%/54% 60% 40% 46%;transform:rotate(15deg) scale(1.08)}100%{border-radius:31% 69% 58% 42%/62% 38% 62% 38%;transform:rotate(-12deg) scale(.96)}}
+@media(pointer:coarse){.magic-cursor-aura,.magic-trail,.magic-focus{display:none}}
+@media(prefers-reduced-motion:reduce){.magic-reveal,.magic-reveal[data-visible=true]{opacity:1;transform:none;filter:none;transition:none}.magic-cursor-aura,.magic-trail,.magic-focus,.magic-particles{display:none}.magic-morphing-blob{animation:none}}
