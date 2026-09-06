@@ -2,13 +2,13 @@
 import React, { useRef, useState } from "react";
 import { Upload, Link, X, Loader2, ImageIcon } from "lucide-react";
 
-interface Props {
-  value: string;
-  onChange: (value: string) => void;
+interface Props<Value extends string | undefined> {
+  value: Value;
+  onChange: (value: Value) => void;
   id?: string;
 }
 
-export function ImageUploadField({ value, onChange, id }: Props) {
+export function ImageUploadField<Value extends string | undefined>({ value, onChange, id }: Props<Value>) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export function ImageUploadField({ value, onChange, id }: Props) {
         throw new Error(json.error || "Upload failed");
       }
 
-      onChange(json.url);
+      onChange(json.url as Value);
     } catch (e: any) {
       setError(e.message);
     } finally {
@@ -69,7 +69,7 @@ export function ImageUploadField({ value, onChange, id }: Props) {
           />
           <button
             type="button"
-            onClick={() => onChange("")}
+            onClick={() => onChange("" as Value)}
             className="absolute top-1.5 right-1.5 bg-black/60 hover:bg-black/80 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
             title="Remove image"
           >
@@ -131,8 +131,8 @@ export function ImageUploadField({ value, onChange, id }: Props) {
           <input
             id={id}
             type="url"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
+            value={value ?? ""}
+            onChange={(e) => onChange(e.target.value as Value)}
             placeholder="https://example.com/image.jpg"
             className="w-full text-xs border border-zinc-200 rounded px-2 py-1.5 outline-none focus:border-zinc-400 bg-white"
           />

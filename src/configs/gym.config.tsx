@@ -36,24 +36,26 @@ export const gymConfig: Config<Props> = {
     ClassSchedule: {
       fields: {
         title: { type: "text" },
+        subtitle: { type: "text" },
         classes: {
           type: "array",
           arrayFields: {
             name: { type: "text" },
             time: { type: "text" },
-            trainer: { type: "text" },
-            intensity: { type: "text" },
-            imageUrl: { type: "custom", render: ImageUploadField }
+            instructor: { type: "text" },
+            location: { type: "text" },
+            spotsLeft: { type: "number" }
           },
           getItemSummary: (item) => item.name || "Class"
         }
       },
       defaultProps: {
         title: "Daily Grinds",
+        subtitle: "Book your place in the fight.",
         classes: [
-          { name: "Inferno HIIT", time: "06:00 AM", trainer: "Marcus Cole", intensity: "Extreme", imageUrl: "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&w=1925&auto=format&fit=crop" },
-          { name: "Iron Forge", time: "12:00 PM", trainer: "Sarah Vance", intensity: "High", imageUrl: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" },
-          { name: "Core Crusher", time: "05:30 PM", trainer: "Jax Reyes", intensity: "Medium", imageUrl: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" }
+          { name: "Inferno HIIT", time: "06:00 AM", instructor: "Marcus Cole", location: "Main Floor", spotsLeft: 8 },
+          { name: "Iron Forge", time: "12:00 PM", instructor: "Sarah Vance", location: "Strength Hall", spotsLeft: 5 },
+          { name: "Core Crusher", time: "05:30 PM", instructor: "Jax Reyes", location: "Studio B", spotsLeft: 12 }
         ]
       },
       render: ({ puck, ...props }) => <ClassSchedule {...props} />

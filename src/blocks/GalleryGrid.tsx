@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { RevealText } from "./artisanPrimitives";
 
 export type GalleryGridProps = {
@@ -9,6 +9,19 @@ export type GalleryGridProps = {
 };
 
 export const GalleryGrid = ({ sectionTitle, items }: GalleryGridProps) => {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  };
+
   return (
     <section className="grain w-full bg-[#170b13] py-24 px-6 text-white overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col items-center gap-12">
@@ -23,22 +36,13 @@ export const GalleryGrid = ({ sectionTitle, items }: GalleryGridProps) => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1 },
-            },
-          }}
+          variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full"
         >
           {items && items.map((item, i) => (
             <motion.div
               key={i}
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-              }}
+              variants={itemVariants}
               className="relative aspect-[4/5] rounded-xl overflow-hidden group cursor-pointer border border-[#e8d0a0]/10"
             >
               <div

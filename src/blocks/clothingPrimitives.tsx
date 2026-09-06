@@ -12,7 +12,7 @@
  */
 
 import React, { useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 /**
  * Wraps any element in a subtle cursor-following lean. Unlike
@@ -86,13 +86,13 @@ export function CrossfadeWords({
   const reduce = useReducedMotion();
   const words = text.split(" ");
 
-  const container = {
+  const container: Variants = {
     hidden: {},
     visible: {
       transition: { staggerChildren: reduce ? 0 : stagger, delayChildren: delay },
     },
   };
-  const child = {
+  const child: Variants = {
     hidden: { opacity: 0, y: reduce ? 0 : 14, filter: reduce ? "blur(0px)" : "blur(10px)" },
     visible: {
       opacity: 1,

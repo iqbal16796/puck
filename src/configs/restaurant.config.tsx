@@ -17,6 +17,10 @@ type Props = {
   NewsletterVIP: NewsletterVIPProps;
 };
 
+type ValueItem = {
+  value?: string;
+};
+
 export const restaurantConfig: Config<Props> = {
   components: {
     ImmersiveHero: {
@@ -44,7 +48,7 @@ export const restaurantConfig: Config<Props> = {
         categories: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Category"
+          getItemSummary: (item: ValueItem) => item.value || "Category"
         },
         items: {
           type: "array",

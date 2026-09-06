@@ -18,6 +18,10 @@ type Props = {
   LuxuryFooter: LuxuryFooterProps;
 };
 
+type ValueItem = {
+  value?: string;
+};
+
 export const salonConfig: Config<Props> = {
   components: {
     Navbar: {
@@ -70,7 +74,7 @@ export const salonConfig: Config<Props> = {
         categories: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Category",
+          getItemSummary: (item: ValueItem) => item.value || "Category",
         },
         currencySymbol: { type: "text" },
         services: {

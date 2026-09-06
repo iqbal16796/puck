@@ -7,6 +7,7 @@ import {
   useMotionValue,
   useReducedMotion,
   useSpring,
+  type Variants,
 } from "framer-motion";
 
 /** Soft drifting aurora field used as an atmospheric backdrop. */
@@ -114,14 +115,14 @@ export function KineticHeadline({
   delay?: number;
 }) {
   const reduce = useReducedMotion();
-  const container = {
+  const container: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: { staggerChildren: reduce ? 0 : 0.035, delayChildren: delay },
     },
   };
-  const child = {
+  const child: Variants = {
     hidden: {
       opacity: 0,
       y: reduce ? 0 : 90,

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { ChevronRight, ArrowDown } from "lucide-react";
 import { RevealText } from "./artisanPrimitives";
 
@@ -13,7 +13,7 @@ export type IntensityHeroProps = {
 
 // Words slam into place with a bounced, overshooting spring — a "barbell drop"
 // impact instead of a gentle fade.
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -21,7 +21,7 @@ const container = {
   },
 };
 
-const word = {
+const word: Variants = {
   hidden: (i: number) => ({
     opacity: 0,
     y: 90,

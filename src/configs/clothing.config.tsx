@@ -25,6 +25,10 @@ type Props = {
   FloatingWhatsApp: FloatingWhatsAppProps;
 };
 
+type ValueItem = {
+  value?: string;
+};
+
 export const clothingConfig: Config<Props> = {
   components: {
     LookbookHero: {
@@ -72,7 +76,7 @@ export const clothingConfig: Config<Props> = {
         words: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Word"
+          getItemSummary: (item: ValueItem) => item.value || "Word"
         }
       },
       resolveData: (data) => ({

@@ -30,6 +30,10 @@ type Props = {
   EmberMarquee: EmberMarqueeProps;
 };
 
+type ValueItem = {
+  value?: string;
+};
+
 export const bakeryConfig: Config<Props> = {
   components: {
     BakeryHero: {
@@ -54,7 +58,7 @@ export const bakeryConfig: Config<Props> = {
         categories: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Category"
+          getItemSummary: (item: ValueItem) => item.value || "Category"
         },
         currencySymbol: { type: "text" },
         products: {
@@ -148,7 +152,7 @@ export const bakeryConfig: Config<Props> = {
         ingredients: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Ingredient"
+          getItemSummary: (item: ValueItem) => item.value || "Ingredient"
         },
         imageUrl: { type: "custom", render: ImageUploadField }
       },
@@ -244,7 +248,7 @@ export const bakeryConfig: Config<Props> = {
         items: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Word"
+          getItemSummary: (item: ValueItem) => item.value || "Word"
         }
       },
       resolveData: (data) => ({

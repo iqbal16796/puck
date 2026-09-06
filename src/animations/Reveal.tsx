@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { cn } from "../utils/cn";
 
 export interface RevealProps {
@@ -21,7 +21,7 @@ export const Reveal = ({
 }: RevealProps) => {
   const shouldReduceMotion = useReducedMotion();
 
-  const getVariants = () => {
+  const getVariants = (): Variants => {
     if (shouldReduceMotion) {
       return {
         hidden: { opacity: 0 },

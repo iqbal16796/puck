@@ -1,7 +1,13 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+
+import {
+  motion,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
+
 import { cn } from "../utils/cn";
 
 export interface StaggerProps {
@@ -11,11 +17,18 @@ export interface StaggerProps {
   delay?: number;
 }
 
-export const Stagger = ({ children, className, staggerDelay = 0.1, delay = 0 }: StaggerProps) => {
+export const Stagger = ({
+  children,
+  className,
+  staggerDelay = 0.1,
+  delay = 0,
+}: StaggerProps) => {
   const shouldReduceMotion = useReducedMotion();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
+  const containerVariants: Variants = {
+    hidden: {
+      opacity: 0,
+    },
     visible: {
       opacity: 1,
       transition: {
@@ -38,16 +51,35 @@ export const Stagger = ({ children, className, staggerDelay = 0.1, delay = 0 }: 
   );
 };
 
-export const StaggerItem = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+export const StaggerItem = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   const shouldReduceMotion = useReducedMotion();
 
-  const itemVariants: any = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  const itemVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
   };
 
   return (
-    <motion.div variants={itemVariants} className={cn(className)}>
+    <motion.div
+      variants={itemVariants}
+      className={cn(className)}
+    >
       {children}
     </motion.div>
   );

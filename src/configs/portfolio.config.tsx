@@ -17,6 +17,10 @@ type Props = {
   ClientLogos: ClientLogosProps;
 };
 
+type ValueItem = {
+  value?: string;
+};
+
 export const portfolioConfig: Config<Props> = {
   components: {
     CreativeHero: {
@@ -91,7 +95,7 @@ export const portfolioConfig: Config<Props> = {
         skills: {
           type: "array",
           arrayFields: { value: { type: "text" } },
-          getItemSummary: (item) => item.value || "Skill"
+          getItemSummary: (item: ValueItem) => item.value || "Skill"
         }
       },
       resolveData: (data) => ({
